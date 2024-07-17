@@ -14,7 +14,7 @@
     <PackageReadmeFile>Readme.md</PackageReadmeFile>
     <PackageProjectUrl>https://apiverve.com/?utm_source=nuget</PackageProjectUrl>
     <SignAssembly>False</SignAssembly>
-    <Description>Number to Words is a simple tool for converting numbers to words. It returns the number in words. It can also do the reverse, and convert words to numbers</Description>
+    <Description>Number to Words is a simple tool for converting numbers to words. It returns the number in words.</Description>
     <RepositoryUrl>https://github.com/apiverve/numbertowords.NET-API</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>number to words; number conversion; number to words api; number conversion api; number to words tool</PackageTags>
