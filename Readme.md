@@ -70,7 +70,7 @@ Using the API client, you can perform requests to the API.
 ###### Define Query
 
 ```
-var queryOptions = new numbertowordsQueryOptions {
+var queryOptions = new NumbertoWordsQueryOptions {
   number = 975
 };
 ```
@@ -104,7 +104,8 @@ if(response.error != null) {
       "seven",
       "five"
     ]
-  }
+  },
+  "code": 200
 }
 ```
 
