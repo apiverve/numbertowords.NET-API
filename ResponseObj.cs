@@ -4,6 +4,22 @@ using Newtonsoft.Json;
 
 namespace APIVerve
 {
+public class afterDecimal
+{
+    [JsonProperty("number")]
+    public string number { get; set; }
+
+    [JsonProperty("words")]
+    public string[] words { get; set; }
+
+    [JsonProperty("numberOfDigits_numeric")]
+    public int numberOfDigitsnumeric { get; set; }
+
+    [JsonProperty("numberOfDigits_words")]
+    public string numberOfDigitswords { get; set; }
+
+}
+
 public class data
 {
     [JsonProperty("number")]
@@ -23,6 +39,9 @@ public class data
 
     [JsonProperty("eachNumber")]
     public string[] eachNumber { get; set; }
+
+    [JsonProperty("afterDecimal")]
+    public afterDecimal afterDecimal { get; set; }
 
 }
 
