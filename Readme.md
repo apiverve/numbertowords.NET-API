@@ -71,7 +71,7 @@ Using the API client, you can perform requests to the API.
 
 ```
 var queryOptions = new NumbertoWordsQueryOptions {
-  number = 975
+  number = 975.07
 };
 ```
 
@@ -94,8 +94,8 @@ if(response.error != null) {
   "status": "ok",
   "error": null,
   "data": {
-    "number": "975",
-    "words": "nine hundred seventy-five",
+    "number": "975.07",
+    "words": "nine hundred seventy-five point zero seven",
     "ordinal": "nine hundred seventy-fifth",
     "numberOfDigits_numeric": 3,
     "numberOfDigits_words": "three",
@@ -103,7 +103,16 @@ if(response.error != null) {
       "nine",
       "seven",
       "five"
-    ]
+    ],
+    "afterDecimal": {
+      "number": "07",
+      "words": [
+        "zero",
+        "seven"
+      ],
+      "numberOfDigits_numeric": 2,
+      "numberOfDigits_words": "two"
+    }
   },
   "code": 200
 }
