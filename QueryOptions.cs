@@ -5,6 +5,6 @@ using System.Text;
 namespace APIVerve
 {
     public class NumbertoWordsQueryOptions {
-public number number { get; set; }
+public double number { get; set; }
 }
 }
