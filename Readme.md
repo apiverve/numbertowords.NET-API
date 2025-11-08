@@ -1,4 +1,4 @@
-Number to Words API
+APIVerve.API.NumbertoWords API
 ============
 
 Number to Words is a simple tool for converting numbers to words. It returns the number in words.
@@ -7,7 +7,7 @@ Number to Words is a simple tool for converting numbers to words. It returns the
 ![Code Climate](https://img.shields.io/badge/maintainability-B-purple)
 ![Prod Ready](https://img.shields.io/badge/production-ready-blue)
 
-This is a .NET Wrapper for the [Number to Words API](https://apiverve.com/marketplace/api/numbertowords)
+This is a .NET Wrapper for the [APIVerve.API.NumbertoWords API](https://apiverve.com/marketplace/numbertowords)
 
 ---
 
@@ -30,73 +30,345 @@ Install-Package APIVerve.API.NumbertoWords
 
 From within Visual Studio:
 
-1. Open the Solution Explorer.
-2. Right-click on a project within your solution.
-3. Click on Manage NuGet Packages..
-4. Click on the Browse tab and search for "APIVerve.API.NumbertoWords".
-5. Click on the APIVerve.API.NumbertoWords package, click Install.
-
+1. Open the Solution Explorer
+2. Right-click on a project within your solution
+3. Click on Manage NuGet Packages
+4. Click on the Browse tab and search for "APIVerve.API.NumbertoWords"
+5. Click on the APIVerve.API.NumbertoWords package, select the appropriate version in the right-tab and click Install
 
 ---
 
 ## Configuration
 
-Before using the numbertowords API client, you have to setup your account and obtain your API Key.  
+Before using the numbertowords API client, you have to setup your account and obtain your API Key.
 You can get it by signing up at [https://apiverve.com](https://apiverve.com)
+
+---
+
+## Quick Start
+
+Here's a simple example to get you started quickly:
+
+```csharp
+using System;
+using APIVerve;
+
+class Program
+{
+    static async Task Main(string[] args)
+    {
+        // Initialize the API client
+        var apiClient = new NumbertoWordsAPIClient("[YOUR_API_KEY]");
+
+        var queryOptions = new NumbertoWordsQueryOptions {
+  number = 975.07
+};
+
+        // Make the API call
+        try
+        {
+            var response = await apiClient.ExecuteAsync(queryOptions);
+
+            if (response.Error != null)
+            {
+                Console.WriteLine($"API Error: {response.Error}");
+            }
+            else
+            {
+                Console.WriteLine("Success!");
+                // Access response data using the strongly-typed ResponseObj properties
+                Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(response, Newtonsoft.Json.Formatting.Indented));
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Exception: {ex.Message}");
+        }
+    }
+}
+```
 
 ---
 
 ## Usage
 
-The Number to Words API documentation is found here: [https://docs.apiverve.com/api/numbertowords](https://docs.apiverve.com/api/numbertowords).  
+The APIVerve.API.NumbertoWords API documentation is found here: [https://docs.apiverve.com/ref/numbertowords](https://docs.apiverve.com/ref/numbertowords).
 You can find parameters, example responses, and status codes documented here.
 
 ### Setup
 
 ###### Authentication
-Number to Words API uses API Key-based authentication. When you create an instance of the API client, you can pass your API Key as a parameter.
+APIVerve.API.NumbertoWords API uses API Key-based authentication. When you create an instance of the API client, you can pass your API Key as a parameter.
 
-```
+```csharp
 // Create an instance of the API client
-var apiClient = new NumbertoWordsAPIClient("[YOUR_API_KEY]", true);
+var apiClient = new NumbertoWordsAPIClient("[YOUR_API_KEY]");
 ```
 
 ---
 
+## Usage Examples
 
-### Perform Request
-Using the API client, you can perform requests to the API.
+### Basic Usage (Async/Await Pattern - Recommended)
 
-###### Define Query
+The modern async/await pattern provides the best performance and code readability:
 
-```
-var queryOptions = new NumbertoWordsQueryOptions {
+```csharp
+using System;
+using System.Threading.Tasks;
+using APIVerve;
+
+public class Example
+{
+    public static async Task Main(string[] args)
+    {
+        var apiClient = new NumbertoWordsAPIClient("[YOUR_API_KEY]");
+
+        var queryOptions = new NumbertoWordsQueryOptions {
   number = 975.07
 };
-```
 
-###### Simple Request
+        var response = await apiClient.ExecuteAsync(queryOptions);
 
-```
-var response = apiClient.Execute(queryOptions);
-if(response.error != null) {
-	Console.WriteLine(response.error);
-} else {
-    var jsonResponse = JsonConvert.SerializeObject(response, Newtonsoft.Json.Formatting.Indented);
-    Console.WriteLine(jsonResponse);
+        if (response.Error != null)
+        {
+            Console.WriteLine($"Error: {response.Error}");
+        }
+        else
+        {
+            Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(response, Newtonsoft.Json.Formatting.Indented));
+        }
+    }
 }
 ```
 
-###### Example Response
+### Synchronous Usage
 
+If you need to use synchronous code, you can use the `Execute` method:
+
+```csharp
+using System;
+using APIVerve;
+
+public class Example
+{
+    public static void Main(string[] args)
+    {
+        var apiClient = new NumbertoWordsAPIClient("[YOUR_API_KEY]");
+
+        var queryOptions = new NumbertoWordsQueryOptions {
+  number = 975.07
+};
+
+        var response = apiClient.Execute(queryOptions);
+
+        if (response.Error != null)
+        {
+            Console.WriteLine($"Error: {response.Error}");
+        }
+        else
+        {
+            Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(response, Newtonsoft.Json.Formatting.Indented));
+        }
+    }
+}
 ```
+
+---
+
+## Error Handling
+
+The API client provides comprehensive error handling. Here are some examples:
+
+### Handling API Errors
+
+```csharp
+using System;
+using System.Threading.Tasks;
+using APIVerve;
+
+public class Example
+{
+    public static async Task Main(string[] args)
+    {
+        var apiClient = new NumbertoWordsAPIClient("[YOUR_API_KEY]");
+
+        var queryOptions = new NumbertoWordsQueryOptions {
+  number = 975.07
+};
+
+        try
+        {
+            var response = await apiClient.ExecuteAsync(queryOptions);
+
+            // Check for API-level errors
+            if (response.Error != null)
+            {
+                Console.WriteLine($"API Error: {response.Error}");
+                Console.WriteLine($"Status: {response.Status}");
+                return;
+            }
+
+            // Success - use the data
+            Console.WriteLine("Request successful!");
+            Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(response, Newtonsoft.Json.Formatting.Indented));
+        }
+        catch (ArgumentException ex)
+        {
+            // Invalid API key or parameters
+            Console.WriteLine($"Invalid argument: {ex.Message}");
+        }
+        catch (System.Net.Http.HttpRequestException ex)
+        {
+            // Network or HTTP errors
+            Console.WriteLine($"Network error: {ex.Message}");
+        }
+        catch (Exception ex)
+        {
+            // Other errors
+            Console.WriteLine($"Unexpected error: {ex.Message}");
+        }
+    }
+}
+```
+
+### Comprehensive Error Handling with Retry Logic
+
+```csharp
+using System;
+using System.Threading.Tasks;
+using APIVerve;
+
+public class Example
+{
+    public static async Task Main(string[] args)
+    {
+        var apiClient = new NumbertoWordsAPIClient("[YOUR_API_KEY]");
+
+        // Configure retry behavior (max 3 retries)
+        apiClient.SetMaxRetries(3);        // Retry up to 3 times (default: 0, max: 3)
+        apiClient.SetRetryDelay(2000);     // Wait 2 seconds between retries
+
+        var queryOptions = new NumbertoWordsQueryOptions {
+  number = 975.07
+};
+
+        try
+        {
+            var response = await apiClient.ExecuteAsync(queryOptions);
+
+            if (response.Error != null)
+            {
+                Console.WriteLine($"API Error: {response.Error}");
+            }
+            else
+            {
+                Console.WriteLine("Success!");
+                Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(response, Newtonsoft.Json.Formatting.Indented));
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Failed after retries: {ex.Message}");
+        }
+    }
+}
+```
+
+---
+
+## Advanced Features
+
+### Custom Headers
+
+Add custom headers to your requests:
+
+```csharp
+var apiClient = new NumbertoWordsAPIClient("[YOUR_API_KEY]");
+
+// Add custom headers
+apiClient.AddCustomHeader("X-Custom-Header", "custom-value");
+apiClient.AddCustomHeader("X-Request-ID", Guid.NewGuid().ToString());
+
+var queryOptions = new NumbertoWordsQueryOptions {
+  number = 975.07
+};
+
+var response = await apiClient.ExecuteAsync(queryOptions);
+
+// Remove a header
+apiClient.RemoveCustomHeader("X-Custom-Header");
+
+// Clear all custom headers
+apiClient.ClearCustomHeaders();
+```
+
+### Request Logging
+
+Enable logging for debugging:
+
+```csharp
+var apiClient = new NumbertoWordsAPIClient("[YOUR_API_KEY]", isDebug: true);
+
+// Or use a custom logger
+apiClient.SetLogger(message =>
+{
+    Console.WriteLine($"[LOG] {DateTime.Now:yyyy-MM-dd HH:mm:ss} - {message}");
+});
+
+var queryOptions = new NumbertoWordsQueryOptions {
+  number = 975.07
+};
+
+var response = await apiClient.ExecuteAsync(queryOptions);
+```
+
+### Retry Configuration
+
+Customize retry behavior for failed requests:
+
+```csharp
+var apiClient = new NumbertoWordsAPIClient("[YOUR_API_KEY]");
+
+// Set retry options
+apiClient.SetMaxRetries(3);           // Retry up to 3 times (default: 0, max: 3)
+apiClient.SetRetryDelay(1500);        // Wait 1.5 seconds between retries (default: 1000ms)
+
+var queryOptions = new NumbertoWordsQueryOptions {
+  number = 975.07
+};
+
+var response = await apiClient.ExecuteAsync(queryOptions);
+```
+
+### Dispose Pattern
+
+The API client implements `IDisposable` for proper resource cleanup:
+
+```csharp
+using (var apiClient = new NumbertoWordsAPIClient("[YOUR_API_KEY]"))
+{
+    var queryOptions = new NumbertoWordsQueryOptions {
+  number = 975.07
+};
+    var response = await apiClient.ExecuteAsync(queryOptions);
+    Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(response, Newtonsoft.Json.Formatting.Indented));
+}
+// HttpClient is automatically disposed here
+```
+
+---
+
+## Example Response
+
+```json
 {
   "status": "ok",
   "error": null,
   "data": {
-    "number": "975.07",
+    "number": 975.07,
     "words": "nine hundred seventy-five point zero seven",
-    "ordinal": "nine hundred seventy-fifth",
+    "ordinal": "nine hundred seventy-fifth point zero seven",
     "numberOfDigits_numeric": 3,
     "numberOfDigits_words": "three",
     "eachNumber": [
@@ -112,9 +384,9 @@ if(response.error != null) {
       ],
       "numberOfDigits_numeric": 2,
       "numberOfDigits_words": "two"
-    }
-  },
-  "code": 200
+    },
+    "locale": "en-US"
+  }
 }
 ```
 
